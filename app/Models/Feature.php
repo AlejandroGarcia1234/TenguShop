@@ -9,6 +9,8 @@ class Feature extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['value', 'description', 'option_id'];
+
     public function option(){
         return $this->belongsTo(Option::class);
     }
