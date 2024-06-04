@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use HasFactory;
+
+    public function products(){
+        return $this->belongsToMany(Product::class)
+            ->withPivot('value')
+            ->withTimestamps();
+    }
+
+    public function features(){
+        return $this->hasMany(Feature::class);
+    }
 }
