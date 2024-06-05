@@ -6,6 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rutas protegidas por middleware de autenticación
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -15,10 +16,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
-    // Incluir las rutas de admin
+    // Incluir las rutas de admin sin duplicar el prefijo
     require base_path('routes/admin.php');
 });
+
