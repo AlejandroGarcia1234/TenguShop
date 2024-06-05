@@ -18,5 +18,7 @@ Route::middleware([
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-});
 
+    // Incluir las rutas de admin
+    require base_path('routes/admin.php');
+});
