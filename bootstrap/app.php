@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         then: function (){
             Route::middleware('auth:web')
             ->prefix('admin')
+            ->name('admin.')
             ->group(base_path('routes/admin.php'));
         }
     )
