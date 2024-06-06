@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\FamilyController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
@@ -12,6 +13,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         })->name('dashboard');
 
         Route::resource('families', FamilyController::class);
+
+        Route::resource('categories', CategoryController::class);
     });
 
 
