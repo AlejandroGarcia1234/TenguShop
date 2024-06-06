@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Family;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.index');
+
+        $categories=Category::orderBy('id','desc')->paginate(10);
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -21,7 +25,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $families = Family::all();
+        return view('admin.categories.create', compact('families'));
     }
 
     /**
@@ -29,7 +34,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'family_id' => 'required|exists:families,id',
+            'name' => 'required',
+        ]);
+
+        Category::create($request->all());
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Buen trabajo!',
+            'text' => 'Categoría creada correctamente.'
+        ]);
+
+        return redirect()->route('admin.categories.index');
+
     }
 
     /**
@@ -45,7 +64,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $families = Family::all();
+        return view('admin.categories.edit', compact('category', 'families'));
     }
 
     /**
@@ -53,7 +73,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'family_id' => 'required|exists:families,id',
+            'name' => 'required',
+        ]);
+
+        $category->update($request->all());
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Buen trabajo!',
+            'text' => 'Categoría actualizada correctamente.'
+        ]);
+
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**
