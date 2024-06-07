@@ -12,4 +12,7 @@
         'name' => $subcategory->name,
     ]
 ]">
+
+@livewire('admin.subcategories.subcategory-edit', ['subcategory' => $subcategory])
+
 </x-admin-layout>
