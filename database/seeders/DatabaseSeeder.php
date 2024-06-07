@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Option;
 use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             FamilySeeder::class,
+            OptionSeeder::class,
         ]);
 
         Product::factory(10)->create();
