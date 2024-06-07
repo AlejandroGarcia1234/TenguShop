@@ -6,13 +6,17 @@ use Livewire\Component;
 use App\Models\Family;
 use App\Models\Category;
 use App\Models\Subcategory;
-use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\WithFileUploads;
 
-class ProductCreate extends Component
+class ProductEdit extends Component
 {
+
     use WithFileUploads;
+
+    public $product;
+    public $productEdit;
 
     public $families;
     public $family_id = '';
@@ -20,18 +24,14 @@ class ProductCreate extends Component
 
     public $image;
 
-    public $product = [
-        'sku' => '',
-        'name' => '',
-        'description' => '',
-        'image_path' => '',
-        'price' => '',
-        'subcategory_id' => '',
-    ];
-
-    public function mount()
+    public function mount($product)
     {
+        $this->productEdit = $product->only('sku', 'name', 'description', 'image_path', 'price', 'subcategory_id');
+
         $this->families = Family::all();
+
+        $this->category_id = $product->subcategory->category->id;
+        $this->family_id = $product->subcategory->category->family_id;
     }
 
     public function boot()
@@ -54,12 +54,12 @@ class ProductCreate extends Component
     public function updatedFamilyId($value)
     {
         $this->category_id = '';
-        $this->product['subcategory_id'] = '';
+        $this->productEdit['subcategory_id'] = '';
     }
 
     public function updatedCategoryId($value)
     {
-        $this->product['subcategory_id'] = '';
+        $this->productEdit['subcategory_id'] = '';
     }
 
     #[Computed()]
@@ -77,29 +77,34 @@ class ProductCreate extends Component
     public function store()
     {
         $this->validate([
-            'image' => 'required|required|max:1024',
-            'product.sku' => 'required|unique:products,sku',
-            'product.name' => 'required|max:255',
-            'product.description' => 'nullable',
-            'product.price' => 'required|numeric|min:0',
-            'product.subcategory_id' => 'required|exists:subcategories,id',
+            'image' => 'nullable|required|max:1024',
+            'productEdit.sku' => 'required|unique:products,sku,' . $this->product->id,
+            'productEdit.name' => 'required|max:255',
+            'productEdit.description' => 'nullable',
+            'productEdit.price' => 'required|numeric|min:0',
+            'productEdit.subcategory_id' => 'required|exists:subcategories,id',
         ]);
 
-        $this->product['image_path'] = $this->image->store('products');
+       if ($this->image) {
+            Storage::delete($this->productEdit['image_path']);
 
-        $product = Product::create($this->product);
+            $this->product['image_path'] = $this->image->store('products');
+        }
 
-        session()->flash('swal',[
+        $this->product->update($this->productEdit);
+
+        $this->dispatch('swal', [
             'icon' => 'success',
-            'title' => '¡Buen trabajo!',
-            'text' => 'Producto creado correctamente',
+            'title' => '¡Producto actualizado!',
+            'text' => 'El producto se ha actualizado correctamente',
         ]);
 
-        return redirect()->route('admin.products.edit', $product);
+        return redirect()->route('admin.products.index', $this->product);
+
     }
-    
+
     public function render()
     {
-        return view('livewire.admin.products.product-create');
+        return view('livewire.admin.products.product-edit');
     }
 }

@@ -13,7 +13,7 @@
             </label>
         </div>
 
-        <img class="aspect-[16/9] object-cover object-center w-full"src="{{ $image ? $image->temporaryUrl() : asset('img/1.png')}}" alt="">
+        <img class="aspect-[16/9] object-cover object-center w-full"src="{{ $image ? $image->temporaryUrl() : Storage::url($productEdit['image_path']) }}">
     </figure>
 
     <x-validation-errors class="mb-4"></x-validation-errors>
@@ -25,7 +25,7 @@
             Código
         </x-label>
 
-        <x-input wire:model="product.sku" class="w-full" placeholder="Por favor ingrese el código del producto"/>
+        <x-input wire:model="productEdit.sku" class="w-full" placeholder="Por favor ingrese el código del producto"/>
 
     </div>
 
@@ -34,7 +34,7 @@
             Nombre
         </x-label>
 
-        <x-input wire:model="product.name" class="w-full" placeholder="Por favor ingrese el nombre del producto"/>
+        <x-input wire:model="productEdit.name" class="w-full" placeholder="Por favor ingrese el nombre del producto"/>
     </div>
 
     <div class="mb-4">
@@ -42,7 +42,7 @@
             Descripción
         </x-label>
 
-        <x-textarea wire:model="product.description" class="w-full" placeholder="Por favor ingrese la descripción del producto">
+        <x-textarea wire:model="productEdit.description" class="w-full" placeholder="Por favor ingrese la descripción del producto">
         </x-textarea>
     </div>
 
@@ -84,7 +84,7 @@
             Subcategorías
         </x-label>
 
-        <x-select wire:model.live="product.subcategory_id">
+        <x-select wire:model.live="productEdit.subcategory_id">
 
             <option value="" disabled>Seleccione una subcategoría</option>
 
@@ -99,12 +99,16 @@
             Precio
         </x-label>
 
-        <x-input type="number" step="0.01" wire:model="product.price" class="w-full" placeholder="Por favor ingrese el precio del producto"/>
+        <x-input type="number" step="0.01" wire:model="productEdit.price" class="w-full" placeholder="Por favor ingrese el precio del producto"/>
     </div>
 
-    <div class="flex justify-left">
-        <x-button>
-            Crear Producto
+    <div class="flex justify-end">
+        <x-danger-button onclick="confirmDelete()">
+            Eliminar
+        </x-danger-button>
+
+        <x-button class="ml-2">
+            Actualizar
         </x-button>
     </div>
     
@@ -112,4 +116,43 @@
 
 </form>
 
+<form action="{{route('admin.products.destroy', $product)}}" method="POST" id="delete-form">
+
+    @csrf
+
+    @method('DELETE')
+
+</form>
+
+@push('js')
+
+    <script>
+        function confirmDelete(){
+
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir la acción!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Confirmar!",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                /*Swal.fire({
+                    title: "¡Eliminado!",
+                    text: "Su ha elimando un elemento",
+                    icon: "success"
+                });*/
+
+                document.getElementById('delete-form').submit();
+            }
+            });
+        }
+    </script>
+    
+@endpush
+
 </div>
+
