@@ -24,9 +24,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
-        return view('admin.subcategories.create', compact('categories'));
+        return view('admin.subcategories.create');
     }
 
     /**
@@ -63,7 +61,7 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        //
+        return view('admin.subcategories.edit', compact('subcategory'));
     }
 
     /**
