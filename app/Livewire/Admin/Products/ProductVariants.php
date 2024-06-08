@@ -109,7 +109,7 @@ class ProductVariants extends Component
     public function generarVariantes(){
         $features = $this->product->options->pluck('pivot.features');
         $combinaciones = $this->generarCombinaciones($features);
-        $this->variant()->delete();
+        $this->product->variants()->delete();
         foreach ($combinaciones as $combinacion){
 
             $variant = Variant::create([
@@ -140,7 +140,7 @@ class ProductVariants extends Component
 
         $combinacionesTemporal[] = $item['id'];
 
-       $resultado = array_merge($resultado, generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
+       $resultado = array_merge($resultado, $this->generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
 
     }
 
