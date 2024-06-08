@@ -11,7 +11,7 @@ class Variant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sku', 'image_path', 'product_id'];
+    protected $fillable = ['sku', 'image_path', 'stock', 'product_id'];
 
     protected function image(): Attribute{
         return Attribute::make(

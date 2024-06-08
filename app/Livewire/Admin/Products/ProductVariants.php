@@ -119,6 +119,8 @@ class ProductVariants extends Component
             $variant->features()->attach($combinacion);
     
         }
+
+        $this->dispatch('variant-generate');
     
     }
 
