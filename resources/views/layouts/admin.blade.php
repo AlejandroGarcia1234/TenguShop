@@ -26,15 +26,7 @@
 
 <body class="font-sans antialiased" x-data="{
         sidebarOpen: false,
-        darkMode: false,
-        toggleSidebarMenu() {
-            this.sidebarOpen = !this.sidebarOpen;
-        },
-        toggleDarkMode() {
-            this.darkMode = !this.darkMode;
-            document.documentElement.classList.toggle('dark');
-        }
-    }" :class="{ 'dark': darkMode, 'overflow-hidden': sidebarOpen
+    }" :class="{'overflow-y-hidden': sidebarOpen,
      
 }">
 
