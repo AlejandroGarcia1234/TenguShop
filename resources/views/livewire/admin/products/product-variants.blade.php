@@ -28,7 +28,7 @@
 
                         <div class="flex flex-wrap">
                             @foreach ($option->pivot->features as $feature)
-    
+                            <div wire:key="option{{$option->id}}-feature-{{$feature['id']}}">
                             @switch($option->type)
                                 @case(1)
                                     
@@ -43,7 +43,7 @@
                                 <div class="relative">
                                     <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color:{{$feature['value']}}"></span>
     
-                                    <button class="absolute z-10 -top-2 left-3 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center " onclick="confirmDelete({{$feature['id']}}, 'feature')">
+                                    <button class="absolute z-10 -top-2 left-3 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center " onclick="confirmDeleteFeature({{$option->id}}, {{$feature['id']}})">
                                         <i class="fa-solid fa-xmark hover:text-red-500 text-sm text-white"></i>
                                     </button>
     
@@ -53,7 +53,7 @@
                                 @default
                                     
                             @endswitch
-                                
+                            </div>   
                             @endforeach
                         </div>
                     </div>
