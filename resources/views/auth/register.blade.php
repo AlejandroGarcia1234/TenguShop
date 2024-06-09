@@ -31,8 +31,8 @@
             </div>
             
             <div>
-                <x-label for="document" value="Documento"/>
-                <x-input id="document" class="block mt-1 w-full" name="document" :value="old('document')" required />
+                <x-label for="document_number" value="Documento"/>
+                <x-input id="document_number" class="block mt-1 w-full" name="document_number" :value="old('document_number')" required />
             </div>
 
             <div>
