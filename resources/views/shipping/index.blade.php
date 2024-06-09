@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <a href="" class="btn btn-purple text-center">
+                <a href="{{route('checkout.index')}}" class="btn btn-purple text-center">
                     Siguiente
                 </a>
 
