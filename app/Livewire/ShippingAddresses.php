@@ -43,6 +43,18 @@ class ShippingAddresses extends Component
         });
     }
 
+    public function deleteAddress($id){
+        Address::find($id)->delete();
+        $this->addresses = Address::where('user_id', auth()->id())->get();
+        
+        if($this->addresses->where('default', true)->count() == 0 && $this->addresses->count() > 0){
+            $this->addresses->first()->update([
+                'default' => true
+            ]);
+        }
+    
+    }
+
     public function render()
     {
         return view('livewire.shipping-addresses');

@@ -4,7 +4,7 @@
 
         <header class="bg-gray-900 px-4 py-2">
             <h2 class="text-white text-lg">
-                Direciones de envío guardadas
+                Direcciones de envío guardadas
             </h2>
         </header>
 
@@ -132,7 +132,8 @@
 
                     <ul class="grid grid-cols-3 gap-4">
                         @foreach ($addresses as $address)
-                            <li class="{{$address->default ? 'bg-purple-200' : 'bg-white '}} rounded-lg shadow">
+                            <li class="{{$address->default ? 'bg-purple-200' : 'bg-white '}} rounded-lg shadow"
+                                wire:key="addresses-{{$address->id}}">
                                 <div class="p-4 flex items-center">
                                     <div>
                                         <i class="fa-solid fa-house text-xl text-purple-600"></i>
@@ -149,7 +150,7 @@
                                         <button wire:click="setDefaultAddress({{$address->id}})">
                                             <i class="fa-solid fa-star"></i>
                                         </button>
-                                        <button>
+                                        <button wire:click="deleteAddress({{$address->id}})">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
