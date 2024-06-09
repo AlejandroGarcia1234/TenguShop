@@ -8,6 +8,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
@@ -20,6 +21,8 @@ Route::get('subcategories/{subcategory}', [SubcategoryController::class, 'show']
 
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
     
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+
 // Rutas protegidas por middleware de autenticación
 Route::middleware([
     'auth:sanctum',
