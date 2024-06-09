@@ -35,9 +35,8 @@
                 </span>
 
                 <x-select wire:model.live="orderBy">
-                    <option value="1">Relevancia</option>
-                    <option value="2">Precio: Mayor a menor</option>
-                    <option value="3">Precio: menor a mayor</option>
+                    <option value="1">Precio: Mayor a menor</option>
+                    <option value="2">Precio: menor a mayor</option>
                 </x-select>
 
             </div>
