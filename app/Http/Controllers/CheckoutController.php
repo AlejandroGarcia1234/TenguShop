@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
@@ -12,7 +13,7 @@ class CheckoutController extends Controller
 
         $access_token = $this->generateAccessToken();
 
-        return $access_token;
+        $session_token = $this->generateSessionToken($access_token);
 
         return view('checkout.index');
     }
@@ -33,4 +34,29 @@ class CheckoutController extends Controller
         ->body();
     
     }
+
+    public function generateSessionToken($access_token){
+        $merchant_id = config('services.niubiz.merchant_id');
+        $url_api = config('services.niubiz.url_api') . "/api.ecommerce/v2/ecommerce/token/session/{$merchant_id}";
+       $response= Http::withHeaders([
+            'Authorization' => $access_token,
+            'Content-Type' => 'application/json',
+        ])
+        ->post($url_api, [
+            'channel' => 'web',
+            'amount' => Cart::instance('shopping')->subtotal(),
+            'antifraud' => [
+                'clientIp' => request()->ip(),
+                'merchantDefineData' => [
+                    'MDD15' => 'value15',
+                    'MDD20' => 'value20',
+                    'MDD33' => 'value33',
+                ]
+            ]
+        ])
+        ->json();
+
+        
+    }
+
 }
