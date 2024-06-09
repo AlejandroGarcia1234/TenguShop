@@ -8,6 +8,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
@@ -33,7 +34,14 @@ Route::middleware([
     require base_path('routes/admin.php');
 });
 
-Route::get('prueba', function () {
+Route::get('prueba', function(){
+
+    Cart::instance('shopping');
+    return Cart::content();
+
+});
+
+Route::get('prueba2', function () {
 
     $product =  Product::find(10);
 
