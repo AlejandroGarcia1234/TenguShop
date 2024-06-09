@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cover;
+use App\Models\Product;
 
 class WelcomeController extends Controller
 {
@@ -17,6 +18,8 @@ class WelcomeController extends Controller
         })
         ->get();
 
-        return view('welcome', compact('covers'));
+        $lastProducts = Product::orderBy('created_at', 'desc')->take(10)->get();
+
+        return view('welcome', compact('covers', 'lastProducts'));
     }
 }

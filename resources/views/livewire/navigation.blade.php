@@ -20,7 +20,7 @@
                     </a>
                 </h1>
                 <div class="flex-1 hidden md:block">
-                    <x-input class="w-full" placeholder="Buscar por producto" />
+                    <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar por producto" />
                 </div>
 
                 <div class="flex items-center space-x-4 md:space-x-8">
@@ -90,7 +90,7 @@
             </div>
 
             <div class="mt-4 md:hidden">
-                <x-input class="w-full" placeholder="Buscar por producto" />
+                <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar por producto" />
             </div>
 
         </x-container>
@@ -123,7 +123,7 @@
                     <ul>
                         @foreach ($families as $family)
                             <li wire:mouseover="$set('family_id', {{$family->id}})">
-                                <a href="" class=" flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-purple-200">{{$family->name}}
+                                <a href="{{route('families.show', $family)}}" class=" flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-purple-200">{{$family->name}}
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
                             </li>
@@ -143,7 +143,7 @@
                             {{$this->familyName}}
                         </p>
 
-                        <a href="" class="btn btn-purple">
+                        <a href="{{route('families.show', $family_id)}}" class="btn btn-purple">
                             Ver todo
                         </a>
                     </div>
@@ -151,14 +151,14 @@
                     <ul class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                         @foreach ($this->categories as $category)
                             <li>
-                                <a href="" class="text-purple-600 font-semibold text-lg">
+                                <a href="{{route('categories.show', $category)}}" class="text-purple-600 font-semibold text-lg">
                                     {{$category->name}}
                                 </a>
 
                                 <ul class="mt-4 space-y-2">
                                     @foreach ($category->subcategories as $subcategory)
                                      <li>
-                                        <a href="" class="text-sm text-gray-700 hover:text-purple-600">
+                                        <a href="{{route('subcategories.show', $subcategory)}}" class="text-sm text-gray-700 hover:text-purple-600">
                                             {{$subcategory->name}}
                                         </a>
                                     </li>   
@@ -174,4 +174,13 @@
         </div>
 
     </div>
+
+    @push('js')
+        <script>
+            function search(value) {
+                Livewire.dispatch('search', {search: value})
+            }
+        </script>   
+    @endpush
+
 </div>
