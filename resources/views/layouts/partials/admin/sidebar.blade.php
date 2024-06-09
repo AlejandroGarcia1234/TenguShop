@@ -6,12 +6,12 @@
             'route' => route('admin.dashboard'),
             'active' => request()->routeIs('admin.dashboard'),
         ],
-        [
-            'name' => 'Opciones',
-            'icon'=> 'fa-solid fa-cog',
-            'route' => route('admin.options.index'),
-            'active' => request()->routeIs('admin.options.*'),
-        ],
+        // [
+        //     'name' => 'Opciones',
+        //     'icon'=> 'fa-solid fa-cog',
+        //     'route' => route('admin.options.index'),
+        //     'active' => request()->routeIs('admin.options.*'),
+        // ],
         [
             'name' => 'Familias',
             'icon'=> 'fa-solid fa-users',
