@@ -1,7 +1,7 @@
 <div x-data="{
     open:false,
 }">
-    <header class="bg-purple-600">
+    <header class="bg-purple-700">
         <x-container class="px-4 py-4">
             <div class="flex justify-between items-center space-x-8">
 

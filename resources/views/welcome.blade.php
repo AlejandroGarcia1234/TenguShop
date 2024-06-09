@@ -49,7 +49,7 @@
                         {{$product->price}} €
                     </p>
 
-                    <a href="" class="btn btn-purple">
+                    <a href="{{route('products.show', $product)}}" class="btn btn-purple">
                         Ver más
                     </a>
                 </div>
