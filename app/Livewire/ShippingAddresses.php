@@ -29,6 +29,20 @@ class ShippingAddresses extends Component
         ];
     }
 
+    public function store(){
+        $this->createAddress->save();
+        $this->addresses = Address::where('user_id', auth()->id())->get();
+        $this->newAddress = false;
+    }
+
+    public function setDefaultAddress($id){
+        $this->addresses->each(function($address) use ($id){
+            $address->update([
+                'default' => $address->id == $id
+            ]);
+        });
+    }
+
     public function render()
     {
         return view('livewire.shipping-addresses');
