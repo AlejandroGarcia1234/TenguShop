@@ -6,10 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasProfilePhoto;
+    use HasApiTokens, Notifiable, HasProfilePhoto, HasRoles;
 
     protected $fillable = [
         'name', 'last_name', 'document_type', 'document_number', 'email', 'phone', 'password',
