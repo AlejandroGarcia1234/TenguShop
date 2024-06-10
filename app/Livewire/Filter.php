@@ -88,12 +88,9 @@ class Filter extends Component
             $query->where('subcategory_id', $this->subcategory_id);
         })
         ->when($this->orderBy == 1, function($query){
-            $query->orderBy('created_at', 'desc');
-        })
-        ->when($this->orderBy == 2, function($query){
             $query->orderBy('price', 'desc');
         })
-        ->when($this->orderBy == 3, function($query){
+        ->when($this->orderBy == 2, function($query){
             $query->orderBy('price', 'asc');
         })
         ->when($this->search, function($query){
