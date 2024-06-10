@@ -40,7 +40,7 @@ class FamilySeeder extends Seeder
             'Pósters y Arte' => [
                 'Póster' => [
                     'Cómic',
-                    'Videojeugo',
+                    'Videojuego',
                 ],
                 'Lámina' => [
                     'Artesanal',
