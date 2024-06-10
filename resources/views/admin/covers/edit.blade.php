@@ -49,7 +49,7 @@
 
     <div class="mb-4">
         <x-label>
-            Fecha fin (opocional)
+            Fecha fin (opcional)
         </x-label>
         <x-input type="date" class="w-full" value="{{old('end_at', $cover->end_at ? $cover->end_at->format('Y-m-d') : '')}}" name="end_at"/>
     </div>
