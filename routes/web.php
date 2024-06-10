@@ -45,11 +45,8 @@ Route::middleware([
     })->name('dashboard');
 
     // Incluir las rutas de admin sin duplicar el prefijo
-        // Incluir las rutas de admin sin duplicar el prefijo
-        Route::middleware('role:super-admin')->group(function () {
-            require base_path('routes/admin.php');
-        });
-    });
+    require base_path('routes/admin.php');
+});
 
 Route::get('prueba', function(){
 
