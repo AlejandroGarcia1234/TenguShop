@@ -37,9 +37,65 @@
             </div>
             <div class="col-span-1">
                 <div class="lg:max-w-[40rem] py-12 px-4 lg:pl-8 sm:pr-6 lg:pr-8">
-                    <p>
-                        <!-- Aquí puedes agregar contenido adicional para la segunda columna -->
-                    </p>
+                    <ul class="space-y-4 mb-4">
+                        @foreach (Cart::instance('shopping')->content() as $item)
+                            <li class="flex items-center space-x-4">
+                                <div class="flex-shrink-0 relative">
+                                    <img src="{{$item->options->image}}" class="h-16 aspect-[1/1]">
+                                
+                                <div class="flex justify-center items-center h-6 w-6 bg-gray-900 bg-opacity-70 rounded-full absolute -right-2 -top-2">
+                                    <span class="text-white font-semibold">
+                                        {{$item->qty}}
+                                    </span>
+                                </div>
+
+                                </div>
+                                <div class="flex-1">
+                                    <p>
+                                        {{$item->name}}
+                                    </p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <p>
+                                        {{$item->price}} €
+                                    </p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="flex-justify-between">
+                        <p>
+                            Subtotal
+                        </p>
+                        <p>
+                            {{Cart::instance('shopping')->subtotal()}} €
+                        </p>
+                        <div class="flex-justify-between">
+                            <p>
+                                Precio de envío
+
+                                <i class="fas fa-info-circle" title="El precio de envío es de 5€"></i>
+                            </p>
+                            <p>
+                                5 €
+                            </p>
+                    </div>
+                    <hr class="my-3">
+
+                    <div class="flex justify-between">
+                        <p class="text-lg font-semibold">
+                            Total
+                        </p>
+
+                        <p>
+                            {{Cart::instance('shopping')->total + 5}} €
+                        </p>    
+                    </div>
+                    <div>
+                        <button class="btn btn-purple w-full">
+                            Completar pedido
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
