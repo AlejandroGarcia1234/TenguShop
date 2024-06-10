@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PedidoController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
@@ -28,6 +29,10 @@ Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+Route::post('/finalizar-pedido', [PedidoController::class, 'finalizar'])->name('finalizar.pedido');
+Route::get('/gracias', [PedidoController::class, 'gracias'])->name('gracias');
+
 
 // Rutas protegidas por middleware de autenticación
 Route::middleware([

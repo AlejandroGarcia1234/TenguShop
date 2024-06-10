@@ -63,7 +63,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    <div class="flex-justify-between">
+                    {{-- <div class="flex-justify-between">
                         <p>
                             Subtotal
                         </p>
@@ -91,10 +91,13 @@
                             {{Cart::instance('shopping')->total + 5}} €
                         </p>    
                     </div>
-                    <div>
-                        <button class="btn btn-purple w-full">
-                            Completar pedido
-                        </button>
+                    <div> --}}
+                        <form action="{{ route('finalizar.pedido') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-purple w-full">
+                                Completar pedido
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
