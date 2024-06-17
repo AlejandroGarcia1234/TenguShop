@@ -13,7 +13,7 @@
             </label>
         </div>
 
-        <img class="aspect-[16/9] object-cover object-center w-full"src="{{ $image ? $image->temporaryUrl() : asset('img/1.png')}}" alt="">
+        <img class="aspect-[16/9] object-cover object-center w-full" src="{{ $image ? $image->temporaryUrl() : asset('img/1.png')}}" alt="">
     </figure>
 
     <x-validation-errors class="mb-4"></x-validation-errors>
